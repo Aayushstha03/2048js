@@ -1,3 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap");
+
 body {
-  background-color: #ffffff;
+  font-family: "open sans", sans-serif;
+  background-color: #faf8ef;
+  text-align: center;
+}
+
+h1,
+h2 {
+  font-family: "montserrat", sans-serif;
+}
+
+h1 {
+  margin: 0 200px 0 0;
+}
+
+div.header {
+  padding: 50px 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#board {
+  width: 400px;
+  height: 400px;
+  background-color: #495057;
+
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
 }
