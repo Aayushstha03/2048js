@@ -25,9 +25,23 @@ div.header {
 #board {
   width: 400px;
   height: 400px;
-  background-color: #495057;
 
   margin: 0 auto;
+  border: 5px solid #264653;
   display: flex;
   flex-wrap: wrap;
+}
+
+.tiles {
+  width: 90px;
+  height: 90px;
+  border: 5px solid #264653;
+  background-color: #2a9d8f;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+
+  color: whitesmoke;
 }
