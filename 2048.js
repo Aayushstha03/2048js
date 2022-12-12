@@ -37,7 +37,6 @@ function emptyTile() {
       }
     }
   }
-  alert("Game Over!");
   return false;
 }
 
@@ -80,7 +79,8 @@ function updateTile(tile, num) {
 document.addEventListener("keyup", (e) => {
   if (e.code == "ArrowLeft") {
     slideLeft();
-    setTwo();//after every successful movement add a tile
+    setTwo();
+    //after every successful movement add a tile
   }
   if (e.code == "ArrowRight") {
     slideRight();
