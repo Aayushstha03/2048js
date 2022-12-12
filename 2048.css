@@ -2,8 +2,9 @@
 
 body {
   font-family: "open sans", sans-serif;
-  background-color: #faf8ef;
+  background-color: #e76f51;
   text-align: center;
+  min-width: 500px;
 }
 
 h1,
@@ -11,23 +12,38 @@ h2 {
   font-family: "montserrat", sans-serif;
 }
 
-h1 {
-  margin: 0 200px 0 0;
+p {
+  font-style: italic;
 }
 
 div.header {
+  margin: auto auto;
+  width: 500px;
   padding: 50px 0 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+h1 {
+  margin: 0 170px 0 44px;
+}
+
+#score {
+  display: inline-block;
+  text-align: start;
+  min-width: 100px;
+  box-sizing: border-box;
+  color: white;
+}
+
 #board {
   width: 400px;
   height: 400px;
-
+  background-color: #264653;
   margin: 0 auto;
   border: 6px solid #264653;
+  border-radius: 16px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -36,6 +52,7 @@ div.header {
   width: 100px;
   height: 100px;
   border: 5px solid #264653;
+  border-radius: 10px;
   background-color: #2a9d8f;
   box-sizing: border-box;
   display: flex;
