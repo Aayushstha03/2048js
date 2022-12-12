@@ -32,7 +32,7 @@ div.header {
   flex-wrap: wrap;
 }
 
-.tiles {
+.tile {
   width: 90px;
   height: 90px;
   border: 5px solid #264653;
