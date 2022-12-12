@@ -9,18 +9,11 @@ window.onload = function () {
 };
 
 function setGame() {
-  //board = [
-  //  [0, 0, 0, 0],
-  //  [0, 0, 0, 0],
-  //  [0, 0, 0, 0],
-  //  [0, 0, 0, 0],
-  //];
-
   board = [
-    [2, 2, 0, 0],
-    [2, 2, 0, 0],
-    [4, 4, 0, 0],
-    [0, 0, 8, 8],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ];
 
   for (let r = 0; r < rows; r++) {
@@ -30,6 +23,42 @@ function setGame() {
       let num = board[r][c];
       updateTile(tile, num); //function to update tile
       document.getElementById("board").append(tile);
+    }
+  }
+  setTwo();
+  setTwo();
+}
+
+function emptyTile() {
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < columns; c++) {
+      if (board[r][c] == 0) {
+        return true;
+      }
+    }
+  }
+  alert("Game Over!");
+  return false;
+}
+
+function setTwo() {
+  if (!emptyTile()) {
+    setGame();
+    return;
+  }
+
+  let found = false;
+
+  while (!found) {
+    //find random row and column to place a 2 in
+    let r = Math.floor(Math.random() * rows);
+    let c = Math.floor(Math.random() * columns);
+    if (board[r][c] == 0) {
+      board[r][c] = 2;
+      let tile = document.getElementById(r.toString() + "-" + c.toString());
+      tile.innerText = "2";
+      tile.classList.add("x2");
+      found = true;
     }
   }
 }
@@ -52,16 +81,21 @@ function updateTile(tile, num) {
 document.addEventListener("keyup", (e) => {
   if (e.code == "ArrowLeft") {
     slideLeft();
+    setTwo();//after every successful movement add a tile
   }
   if (e.code == "ArrowRight") {
     slideRight();
+    setTwo();
   }
   if (e.code == "ArrowUp") {
     slideUp();
+    setTwo();
   }
   if (e.code == "ArrowDown") {
     slideDown();
+    setTwo();
   }
+  document.getElementById("score").innerText = score;
 });
 
 function filterZero(row) {
