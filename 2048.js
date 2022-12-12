@@ -43,7 +43,6 @@ function emptyTile() {
 
 function setTwo() {
   if (!emptyTile()) {
-    setGame();
     return;
   }
 
