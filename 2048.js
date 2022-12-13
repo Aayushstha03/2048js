@@ -39,9 +39,13 @@ function emptyTile() {
   }
   return false;
 }
+function choose(choices) {
+  var index = Math.floor(Math.random() * choices.length);
+  return choices[index];
+}
 
-function setTwo() {
-  if (!emptyTile()) {
+function setTwo(change = true) {
+  if (!emptyTile() || !change) {
     return;
   }
 
@@ -52,10 +56,11 @@ function setTwo() {
     let r = Math.floor(Math.random() * rows);
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
-      board[r][c] = 2;
+      a = choose(["2", "2", "2", "4"])
+      board[r][c] = parseInt(a);
       let tile = document.getElementById(r.toString() + "-" + c.toString());
-      tile.innerText = "2";
-      tile.classList.add("x2");
+      tile.innerText = a;
+      tile.classList.add("x" + a);
       found = true;
     }
   }
@@ -76,46 +81,22 @@ function updateTile(tile, num) {
   }
 }
 
-document.addEventListener("keyup", (e) => {
-  if (e.code == "ArrowLeft") {
-    slideLeft();
-    setTwo();
-    //after every successful movement add a tile
-  }
-  if (e.code == "ArrowRight") {
-    slideRight();
-    setTwo();
-  }
-  if (e.code == "ArrowUp") {
-    slideUp();
-    setTwo();
-  }
-  if (e.code == "ArrowDown") {
-    slideDown();
-    setTwo();
-  }
-  document.getElementById("score").innerText = score;
-});
-
-//Credits to Electron7
-document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchmove", handleTouchMove, false);
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
 
 var xDown = null;
 var yDown = null;
 
 function getTouches(evt) {
-  return (
-    evt.touches || // browser API
-    evt.originalEvent.touches
-  ); // jQuery
+  return evt.touches ||             // browser API
+    evt.originalEvent.touches; // jQuery
 }
 
 function handleTouchStart(evt) {
   const firstTouch = getTouches(evt)[0];
   xDown = firstTouch.clientX;
   yDown = firstTouch.clientY;
-}
+};
 
 function handleTouchMove(evt) {
   if (!xDown || !yDown) {
@@ -128,32 +109,49 @@ function handleTouchMove(evt) {
   var xDiff = xDown - xUp;
   var yDiff = yDown - yUp;
 
-  if (Math.abs(xDiff) > Math.abs(yDiff)) {
-    /*most significant*/
+  if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
     if (xDiff > 0) {
-      slideLeft();
-      setTwo(); /* right swipe */
+      setTwo(slideLeft()
+      ); /* right swipe */
     } else {
-      slideRight();
-      setTwo(); /* left swipe */
+      setTwo(slideRight());/* left swipe */
     }
   } else {
     if (yDiff > 0) {
-      slideUp();
-      setTwo();
+
+      setTwo(slideUp());
       /* down swipe */
     } else {
-      slideDown();
-      setTwo(); /* up swipe */
+
+      setTwo(slideDown());  /* up swipe */
     }
   }
   /* reset values */
   xDown = null;
   yDown = null;
-  document.getElementById("score").innerText = score;
-}
-//
+};
 
+
+document.addEventListener("keyup", (e) => {
+  if (e.code == "ArrowLeft") {
+
+    setTwo(slideLeft());
+    //after every successful movement add a tile
+  }
+  if (e.code == "ArrowRight") {
+
+    setTwo(slideRight());
+  }
+  if (e.code == "ArrowUp") {
+
+    setTwo(slideUp());
+  }
+  if (e.code == "ArrowDown") {
+
+    setTwo(slideDown());
+  }
+  document.getElementById("score").innerText = score;
+});
 
 function filterZero(row) {
   return row.filter((num) => num != 0); //create a new array without zeroes
@@ -183,6 +181,8 @@ function slide(row) {
 }
 
 function slideLeft() {
+  let oldboard = JSON.parse(JSON.stringify(board));
+
   for (let r = 0; r < rows; r++) {
     let row = board[r];
     row = slide(row); //function slide reassigns value!
@@ -194,10 +194,21 @@ function slideLeft() {
       let num = board[r][c];
       updateTile(tile, num);
     }
+
+  }
+  let newboard = JSON.parse(JSON.stringify(board));
+
+  if (oldboard.join() === newboard.join()) {
+    return false;
+  }
+  else {
+    return true;
   }
 }
 
 function slideRight() {
+  let oldboard = JSON.parse(JSON.stringify(board));
+
   for (let r = 0; r < rows; r++) {
     let row = board[r];
     //reverse the array
@@ -214,9 +225,19 @@ function slideRight() {
       updateTile(tile, num);
     }
   }
+  let newboard = JSON.parse(JSON.stringify(board));
+
+  if (oldboard.join() === newboard.join()) {
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 
 function slideUp() {
+  let oldboard = JSON.parse(JSON.stringify(board));
+
   for (let c = 0; c < columns; c++) {
     //taking transpose
     let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
@@ -230,9 +251,19 @@ function slideUp() {
       updateTile(tile, num);
     }
   }
+  let newboard = JSON.parse(JSON.stringify(board));
+
+  if (oldboard.join() === newboard.join()) {
+    return false;
+  }
+  else {
+    return true;
+  }
 }
 
 function slideDown() {
+  let oldboard = JSON.parse(JSON.stringify(board));
+
   for (let c = 0; c < columns; c++) {
     //taking transpose
     let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
@@ -247,5 +278,13 @@ function slideDown() {
       let num = board[r][c];
       updateTile(tile, num);
     }
+  }
+  let newboard = JSON.parse(JSON.stringify(board));
+
+  if (oldboard.join() === newboard.join()) {
+    return false;
+  }
+  else {
+    return true;
   }
 }
