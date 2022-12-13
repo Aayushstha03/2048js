@@ -61,6 +61,7 @@ function setTwo(change = true) {
       let tile = document.getElementById(r.toString() + "-" + c.toString());
       tile.innerText = a;
       tile.classList.add("x" + a);
+      tile.classList.add("new")
       found = true;
     }
   }
