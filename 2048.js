@@ -97,6 +97,7 @@ document.addEventListener("keyup", (e) => {
   document.getElementById("score").innerText = score;
 });
 
+//Credits to Electron7
 document.addEventListener("touchstart", handleTouchStart, false);
 document.addEventListener("touchmove", handleTouchMove, false);
 
@@ -150,6 +151,8 @@ function handleTouchMove(evt) {
   xDown = null;
   yDown = null;
 }
+//
+
 
 function filterZero(row) {
   return row.filter((num) => num != 0); //create a new array without zeroes
