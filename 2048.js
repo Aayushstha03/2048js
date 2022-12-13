@@ -57,7 +57,7 @@ function setTwo(change = true) {
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
       a=choose(["2","2","2","4"])
-      board[r][c] = int(a);
+      board[r][c] = parseInt(a);
       let tile = document.getElementById(r.toString() + "-" + c.toString());
       tile.innerText = a;
       tile.classList.add("x"+a);
