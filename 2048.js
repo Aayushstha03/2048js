@@ -39,7 +39,10 @@ function emptyTile() {
   }
   return false;
 }
-
+function choose(choices) {
+  var index = Math.floor(Math.random() * choices.length);
+  return choices[index];
+}
 
 function setTwo(change = true) {
   if (!emptyTile() || !change) {
@@ -53,10 +56,11 @@ function setTwo(change = true) {
     let r = Math.floor(Math.random() * rows);
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
-      board[r][c] = 2;
+      a=choose(["2","2","2","4"])
+      board[r][c] = int(a);
       let tile = document.getElementById(r.toString() + "-" + c.toString());
-      tile.innerText = "2";
-      tile.classList.add("x2");
+      tile.innerText = a;
+      tile.classList.add("x"+a);
       found = true;
     }
   }
