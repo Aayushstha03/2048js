@@ -5,6 +5,7 @@ body {
   background-color: #e76f51;
   text-align: center;
   min-width: 500px;
+  overscroll-behavior: contain;
 }
 
 h1,
