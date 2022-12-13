@@ -150,6 +150,7 @@ function handleTouchMove(evt) {
   /* reset values */
   xDown = null;
   yDown = null;
+  document.getElementById("score").innerText = score;
 }
 //
 
