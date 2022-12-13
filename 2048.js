@@ -56,11 +56,11 @@ function setTwo(change = true) {
     let r = Math.floor(Math.random() * rows);
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
-      a=choose(["2","2","2","4"])
+      a = choose(["2", "2", "2", "4"])
       board[r][c] = parseInt(a);
       let tile = document.getElementById(r.toString() + "-" + c.toString());
       tile.innerText = a;
-      tile.classList.add("x"+a);
+      tile.classList.add("x" + a);
       found = true;
     }
   }
@@ -111,20 +111,19 @@ function handleTouchMove(evt) {
 
   if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
     if (xDiff > 0) {
-      slideLeft();
-      setTwo(); /* right swipe */
+      setTwo(slideLeft()
+      ); /* right swipe */
     } else {
-      slideRight();
-      setTwo();/* left swipe */
+      setTwo(slideRight());/* left swipe */
     }
   } else {
     if (yDiff > 0) {
-      slideUp();
-      setTwo();
+
+      setTwo(slideUp());
       /* down swipe */
     } else {
-      slideDown();
-      setTwo();  /* up swipe */
+
+      setTwo(slideDown());  /* up swipe */
     }
   }
   /* reset values */
@@ -140,16 +139,16 @@ document.addEventListener("keyup", (e) => {
     //after every successful movement add a tile
   }
   if (e.code == "ArrowRight") {
-    slideRight();
-    setTwo();
+
+    setTwo(slideRight());
   }
   if (e.code == "ArrowUp") {
-    slideUp();
-    setTwo();
+
+    setTwo(slideUp());
   }
   if (e.code == "ArrowDown") {
-    slideDown();
-    setTwo();
+
+    setTwo(slideDown());
   }
   document.getElementById("score").innerText = score;
 });
