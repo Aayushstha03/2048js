@@ -140,8 +140,8 @@ function handleTouchMove(evt) {
 
 };
 function slideanim(orientation) {
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
       if (board[i][j] != 0) {
         if (orientation == 0) {
           if (i != 0) {
@@ -386,8 +386,8 @@ function slideDown() {
 
 
 function clearAllTileStyle() {
-  for (let r = 0; r < 4; r++) {
-    for (var c = 0; c < 4; c++) {
+  for (let r = 0; r < rows; r++) {
+    for (var c = 0; c < columns; c++) {
       document.getElementById("t" + r.toString() + "-" + c.toString()).style = "";
     }
   }
