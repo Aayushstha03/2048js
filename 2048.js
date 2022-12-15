@@ -4,6 +4,8 @@ var rows = 4;
 var columns = 4;
 var animationTime = 0.3;
 //when the page loads
+//note : orientations= 0 up 1 left 2 right 3 down
+
 window.onload = function () {
   setGame();
 };
@@ -220,7 +222,6 @@ function slide(row, column, orientation) {
       row[i + 1] = 0;
       score += row[i];
       doubled.push(i)
-      //orientations= 0 up 1 left 2 right 3 down
       if (orientation == 0) {
         // document.getElementById("t"+i+"-"+column).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(() => document.getElementById("t" + i + "-" + column).style = " animation:new .3s;", (animationTime - .1) * 1000);
