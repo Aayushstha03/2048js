@@ -2,7 +2,7 @@ var board;
 var score = 0;
 var rows = 4;
 var columns = 4;
-var animationTime = 0.3;
+var animationTime = 0.2;
 //when the page loads
 //note : orientations= 0 up 1 left 2 right 3 down
 
@@ -32,6 +32,63 @@ function setGame() {
   setTwo();
 }
 
+function checkMoves() {
+  count = 0;
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < columns; j++) {
+      if (i == 0) {
+        if (board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
+          count++;
+        }
+      }
+      else if (i == 3) {
+        if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0) {
+          count++;
+        }
+      }
+      else if (j == 0) {
+        if (board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
+          count++;
+        }
+      }
+      else if (j == 3) {
+        if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0) {
+          count++;
+        }
+      }
+      else {
+        if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0 || board[i][j] == board[i][j + 1] || board[i][j + 1] == 0 || board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 || board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
+          count++;
+        }
+      }
+    }
+  }
+  if (count == 0) {
+    alert("Game Over");
+    // let message = document.createElement("div"); //create a div for every element
+    // message.classList.add("gameover")
+    // message.innerHTML="<h2>Game Over</h2>"
+
+    board = [
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+
+    ];
+    for (let c = 0; c < columns; c++) {
+      for (let r = 0; r < rows; r++) {
+        let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+        let num = board[r][c];
+        updateTile(tile, num);
+      }
+    }
+    setTwo();
+    setTwo();
+
+  }
+}
+
 function emptyTile() {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
@@ -59,7 +116,7 @@ function setTwo(change = true) {
     let r = Math.floor(Math.random() * rows);
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
-      a = choose(["2", "2", "2", "2", "2","2","2", "4"])
+      a = choose(["2", "2", "2", "2", "2", "2", "2", "4"])
       board[r][c] = parseInt(a);
       let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
       tile.innerText = a;
@@ -137,8 +194,11 @@ function handleTouchMove(evt) {
   /* reset values */
   xDown = null;
   yDown = null;
+
   document.getElementById("score").innerText = score;
   setTimeout(() => { clearAllTileStyle(); }, 1000);
+  // checkMoves();
+
 
 };
 function slideanim(orientation) {
@@ -221,7 +281,6 @@ function slide(row, column, orientation) {
       row[i] *= 2;
       row[i + 1] = 0;
       score += row[i];
-      doubled.push(i)
       if (orientation == 0) {
         // document.getElementById("t"+i+"-"+column).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(() => document.getElementById("t" + i + "-" + column).style = " animation:new .3s;", (animationTime - .1) * 1000);
@@ -275,7 +334,7 @@ function slideUp() {
       board[r][c] = row[r];
       let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
       let num = board[r][c];
-     
+
       updateTile(tile, num);
     }
   }
@@ -293,7 +352,6 @@ function slideLeft() {
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let r = 0; r < rows; r++) {
-    doubled = [];
 
     let row = board[r];
     row = slide(row, r, 1); //function slide reassigns value!
@@ -303,11 +361,8 @@ function slideLeft() {
     for (let c = 0; c < columns; c++) {
       let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
       let num = board[r][c];
-      if (c in doubled) {
-        extraclass = "doubled"
-      }
+
       updateTile(tile, num);
-      extraclass = ""
     }
 
   }
@@ -325,7 +380,6 @@ function slideRight() {
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let r = 0; r < rows; r++) {
-    doubled = [];
     let row = board[r];
     //reverse the array
     row.reverse();
@@ -371,7 +425,7 @@ function slideDown() {
       board[r][c] = row[r];
       let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
       let num = board[r][c];
-    
+
       updateTile(tile, num);
     }
   }
@@ -416,6 +470,8 @@ document.addEventListener("keyup", (e) => {
   }
   document.getElementById("score").innerText = score;
   //  clearAllTileStyle();
+  // checkMoves();
+
   timer = setTimeout(() => { clearAllTileStyle(); }, 400);
 
 });
