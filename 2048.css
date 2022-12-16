@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap");
 
+.gameover{
+  width: 200px;
+  height: 100px;
+  z-index: 1000;
 
+}
 .new {
   animation-name: new;
   animation-duration: .5s;
@@ -110,7 +115,8 @@ h1 {
   background-color: #2a9d8f;
   box-sizing: border-box;
   display: block;
-  padding: 25px;
+  padding: 25px 0px 0px 0px;
+  text-align: center;
   justify-content: center;
   align-items: center;
   font-size: 30px;
@@ -157,6 +163,7 @@ h1 {
 .x256 {
   background-color: #edcc63;
   color: white;
+  box-shadow: rgb(255, 255, 59);
 }
 
 .x512 {
@@ -167,11 +174,14 @@ h1 {
 .x1024 {
   background-color: #eec744;
   color: white;
+  font-size: 28px;
 }
 
 .x2048 {
   background-color: #ecc230;
   color: white;
+  font-size: 28px;
+
 }
 
 .x4096 {
