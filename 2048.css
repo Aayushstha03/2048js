@@ -1,5 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap");
 
+.gameover{
+  width: 200px;
+  height: 100px;
+  z-index: 1000;
+
+}
+.new {
+  animation-name: new;
+  animation-duration: .5s;
+  transition-duration: .1s;
+  animation-delay: 100ms;
+}
+.slide {
+  animation: slide 1s;
+}
 body {
   font-family: "open sans", sans-serif;
   background-color: #e76f51;
@@ -57,10 +72,41 @@ h1 {
   margin: 0 auto 10px auto;
   border: 6px solid #264653;
   border-radius: 16px;
-  display: flex;
-  flex-wrap: wrap;
+  display:grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
 }
-
+#slideleft{
+  animation: slideleft;
+}
+@keyframes new {
+  0%   {position:relative;top:-5px;left:-5px;width: 110px; height: 110px;z-index:1000 ;}
+  100% {position:relative;top:0px;left:0px;width: 100px;height: 100px;z-index: 5;}
+}
+@keyframes slideright{
+  100% {position: relative;
+    right: 0px;}
+  0%{position: relative; 
+    right: var(--bs,0px);}
+}
+@keyframes slideleft{
+  100% {position: relative;
+      left: 0px;}
+  0%{position: relative; 
+    left: var(--bs,0px);}
+}
+@keyframes slidedown{
+  100% {position: relative;
+      bottom: 0px;}
+  0%{position: relative; 
+    bottom: var(--bs,0px);}
+}
+@keyframes slideup{
+  100% {position: relative;
+      top: 0px;}
+  0%{position: relative; 
+    top: var(--bs,0px);}
+}
 .tile {
   width: 100px;
   height: 100px;
@@ -68,13 +114,17 @@ h1 {
   border-radius: 10px;
   background-color: #2a9d8f;
   box-sizing: border-box;
-  display: flex;
+  display: block;
+  padding: 25px 0px 0px 0px;
+  text-align: center;
   justify-content: center;
   align-items: center;
   font-size: 30px;
-
   color: whitesmoke;
 }
+
+
+
 .x2 {
   background-color: #eee4da;
   color: #727371;
@@ -113,6 +163,7 @@ h1 {
 .x256 {
   background-color: #edcc63;
   color: white;
+  box-shadow: rgb(255, 255, 59);
 }
 
 .x512 {
@@ -123,21 +174,28 @@ h1 {
 .x1024 {
   background-color: #eec744;
   color: white;
+  font-size: 28px;
 }
 
 .x2048 {
   background-color: #ecc230;
   color: white;
+  font-size: 28px;
+
 }
 
 .x4096 {
   background-color: #fe3d3d;
   color: white;
+  font-size: 28px;
+
 }
 
 .x8192 {
   background-color: #ff2020;
   color: white;
+  font-size: 28px;
+
 }
 
 #reset {
@@ -149,4 +207,13 @@ h1 {
   background-color: #ecc230;
   font-family: "montserrat", sans-serif;
   cursor: pointer;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
