@@ -33,7 +33,15 @@ function setGame() {
 }
 
 function checkMoves() {
+  fillcount=0;
   count = 0;
+  for (var i=0;i<rows;i++){
+      for (var j = 0; j < columns; j++) {
+        if(board[i][j]==0)
+      fillcount++;}
+    } 
+ 
+  if(fillcount==0){
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
       if (i == 0) {
@@ -86,7 +94,7 @@ function checkMoves() {
     setTwo();
     setTwo();
 
-  }
+  }}
 }
 
 function emptyTile() {
@@ -234,7 +242,9 @@ function slideanim(orientation) {
           }
         }
         else if (orientation == 2) { // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
-          if (i != 3) {
+          if (j != 0 && j!=3) {
+            console.log(i,j, board[i][j])
+
 
             if (board[i][j + 1] == 0 || board[i][j] == board[i][j + 1]) {
               var x = 0
@@ -270,7 +280,6 @@ function slideanim(orientation) {
   }
 }
 function slide(row, column, orientation) {
-  slideanim(orientation);
 
   row = filterZero(row); //step 1 no zero
   //2. sliding
@@ -321,6 +330,7 @@ function opposite(n) {
 
 
 function slideUp() {
+  slideanim(0);
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let c = 0; c < columns; c++) {
@@ -337,7 +347,8 @@ function slideUp() {
 
       updateTile(tile, num);
     }
-  }
+  }  
+
   let newboard = JSON.parse(JSON.stringify(board));
 
   if (oldboard.join() === newboard.join()) {
@@ -349,6 +360,8 @@ function slideUp() {
 }
 
 function slideLeft() {
+  slideanim(1);
+
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let r = 0; r < rows; r++) {
@@ -376,6 +389,7 @@ function slideLeft() {
   }
 }
 function slideRight() {
+  slideanim(2);
 
   let oldboard = JSON.parse(JSON.stringify(board));
 
@@ -409,6 +423,7 @@ function slideRight() {
 
 
 function slideDown() {
+  slideanim(3);
 
   let oldboard = JSON.parse(JSON.stringify(board));
 
