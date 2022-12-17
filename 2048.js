@@ -33,15 +33,14 @@ function setGame() {
 }
 
 function checkMoves() {
-  fillcount=0;
+  // fillcount=0;
   count = 0;
-  for (var i=0;i<rows;i++){
-      for (var j = 0; j < columns; j++) {
-        if(board[i][j]==0)
-      fillcount++;}
-    } 
+  // for (var i=0;i<rows;i++){
+  //     for (var j = 0; j < columns; j++) {
+  //       if(board[i][j]==0)
+  //     fillcount++;}
+  //   } 
  
-  if(fillcount==0){
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
       if (i == 0) {
@@ -49,12 +48,18 @@ function checkMoves() {
           count++;
         }
       }
-      else if (i == 3) {
+       else if (i == 3) {
         if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0) {
           count++;
         }
+        
       }
-      else if (j == 0) {
+      else{
+        if(board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 ||board[i][j] == board[i + 1][j] || board[i + 1][j] == 0){
+          count++;
+        }
+      }
+       if (j == 0) {
         if (board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
           count++;
         }
@@ -64,15 +69,20 @@ function checkMoves() {
           count++;
         }
       }
-      else {
-        if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0 || board[i][j] == board[i][j + 1] || board[i][j + 1] == 0 || board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 || board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
+      else{
+        if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0 || board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
           count++;
         }
       }
     }
-  }
+
+  
+  console.log(count);
+
   if (count == 0) {
-    alert("Game Over");
+    console.log(board)
+    alert("Game Over",board);
+
     // let message = document.createElement("div"); //create a div for every element
     // message.classList.add("gameover")
     // message.innerHTML="<h2>Game Over</h2>"
@@ -94,7 +104,8 @@ function checkMoves() {
     setTwo();
     setTwo();
 
-  }}
+  }
+}
 }
 
 function emptyTile() {
@@ -204,8 +215,8 @@ function handleTouchMove(evt) {
   yDown = null;
 
   document.getElementById("score").innerText = score;
-  setTimeout(() => { clearAllTileStyle(); }, 1000);
-  // checkMoves();
+  setTimeout(() => { clearAllTileStyle();   checkMoves();
+  }, 1000);
 
 
 };
@@ -243,7 +254,6 @@ function slideanim(orientation) {
         }
         else if (orientation == 2) { // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
           if (j != 0 && j!=3) {
-            console.log(i,j, board[i][j])
 
 
             if (board[i][j + 1] == 0 || board[i][j] == board[i][j + 1]) {
@@ -485,9 +495,9 @@ document.addEventListener("keyup", (e) => {
   }
   document.getElementById("score").innerText = score;
   //  clearAllTileStyle();
-  // checkMoves();
 
-  timer = setTimeout(() => { clearAllTileStyle(); }, 400);
+  timer = setTimeout(() => { clearAllTileStyle();   checkMoves();
+  }, 400);
 
 });
 
