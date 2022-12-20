@@ -48,7 +48,7 @@ function checkMoves() {
           count++;
         }
       }
-       else if (i == 3) {
+       else if (i == rows-1) {
         if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0) {
           count++;
         }
@@ -64,7 +64,7 @@ function checkMoves() {
           count++;
         }
       }
-      else if (j == 3) {
+      else if (j == columns-1) {
         if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0) {
           count++;
         }
@@ -75,11 +75,9 @@ function checkMoves() {
         }
       }
     }
-
+  }
   
-  console.log(count);
-
-  if (count == 0) {
+  if (count==0) {
     console.log(board)
     alert("Game Over",board);
 
@@ -105,7 +103,7 @@ function checkMoves() {
     setTwo();
 
   }
-}
+
 }
 
 function emptyTile() {
@@ -215,7 +213,7 @@ function handleTouchMove(evt) {
   yDown = null;
 
   document.getElementById("score").innerText = score;
-  setTimeout(() => { clearAllTileStyle();   checkMoves();
+  setTimeout(() => { clearAllTileStyle(); checkMoves();   
   }, 1000);
 
 
@@ -253,12 +251,12 @@ function slideanim(orientation) {
           }
         }
         else if (orientation == 2) { // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
-          if (j != 0 && j!=3) {
+          if (j != 0 && j!=columns-1) {
 
 
             if (board[i][j + 1] == 0 || board[i][j] == board[i][j + 1]) {
               var x = 0
-              for (var n = 3; n > j; n--) {
+              for (var n = columns-1; n > j; n--) {
 
                 if (board[i][n] == board[i][j] || board[i][n] == 0) {
                   x++;
@@ -270,11 +268,11 @@ function slideanim(orientation) {
           }
         }
         else if (orientation == 3) { // && board[i][j] != 0 && i != 3  && board[i][j+1]!=0
-          if (i != 3) {
+          if (i != rows-1) {
 
             if (board[i + 1][j] == 0 || board[i][j] == board[i + 1][j]) {
               var x = 0
-              for (var n = 3; n > i; n--) {
+              for (var n = rows-1; n > i; n--) {
 
                 if (board[n][j] == board[i][j] || board[n][j] == 0) {
                   x++;
@@ -496,7 +494,7 @@ document.addEventListener("keyup", (e) => {
   document.getElementById("score").innerText = score;
   //  clearAllTileStyle();
 
-  timer = setTimeout(() => { clearAllTileStyle();   checkMoves();
+  timer = setTimeout(() => { clearAllTileStyle();  checkMoves();
   }, 400);
 
 });
