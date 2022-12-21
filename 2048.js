@@ -11,14 +11,13 @@ window.onload = function () {
 };
 
 function setGame() {
-  running = true
+  running = true;
   board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
   ];
-
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < columns; c++) {
@@ -40,7 +39,7 @@ function checkMoves() {
   //     for (var j = 0; j < columns; j++) {
   //       if(board[i][j]==0)
   //     fillcount++;}
-  //   } 
+  //   }
 
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
@@ -48,15 +47,17 @@ function checkMoves() {
         if (board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
           count++;
         }
-      }
-      else if (i == rows - 1) {
+      } else if (i == rows - 1) {
         if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0) {
           count++;
         }
-
-      }
-      else {
-        if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 || board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
+      } else {
+        if (
+          board[i][j] == board[i - 1][j] ||
+          board[i - 1][j] == 0 ||
+          board[i][j] == board[i + 1][j] ||
+          board[i + 1][j] == 0
+        ) {
           count++;
         }
       }
@@ -64,14 +65,17 @@ function checkMoves() {
         if (board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
           count++;
         }
-      }
-      else if (j == columns - 1) {
+      } else if (j == columns - 1) {
         if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0) {
           count++;
         }
-      }
-      else {
-        if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0 || board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
+      } else {
+        if (
+          board[i][j] == board[i][j - 1] ||
+          board[i][j - 1] == 0 ||
+          board[i][j] == board[i][j + 1] ||
+          board[i][j + 1] == 0
+        ) {
           count++;
         }
       }
@@ -81,30 +85,33 @@ function checkMoves() {
   if (count == 0) {
     for (let c = 0; c < columns; c++) {
       for (let r = 0; r < rows; r++) {
-        let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+        let tile = document.getElementById(
+          "t" + r.toString() + "-" + c.toString()
+        );
         let num = board[r][c];
         updateTile(tile, num);
       }
     }
-    running = false
+    running = false;
     let message = document.createElement("div"); //create a div for every element
     message.classList.add("gameover");
-    message.id = "gameoverscreen"
-    message.innerHTML = "<h2>Game Over</h2><form><input type=\"button\" id=\"cont\" value=\"Reset?\"></form>";
+    message.id = "gameoverscreen";
+    message.innerHTML =
+      '<div class="gameover"><p class="message">Game over!</p><p>You scored 69 points!</p><button id="reset">Reset game!</button></div>';
 
     if (document.getElementsByClassName("gameover").length < 1) {
       document.getElementsByTagName("body")[0].append(message);
     }
 
-    const button = document.querySelector("input")
-    button.addEventListener('click', gameReset)
+    const button = document.querySelector("input");
+    button.addEventListener("click", gameReset);
   }
 }
 function gameReset() {
-  running = true
+  running = true;
   if (document.getElementsByClassName("gameover").length > 0) {
-  document.getElementById("gameoverscreen").remove();
- }
+    document.getElementById("gameoverscreen").remove();
+  }
   score = 0;
   document.getElementById("score").innerText = score;
 
@@ -113,11 +120,12 @@ function gameReset() {
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
-
   ];
   for (let c = 0; c < columns; c++) {
     for (let r = 0; r < rows; r++) {
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       let num = board[r][c];
       updateTile(tile, num);
     }
@@ -153,12 +161,14 @@ function setTwo(change = true) {
     let r = Math.floor(Math.random() * rows);
     let c = Math.floor(Math.random() * columns);
     if (board[r][c] == 0) {
-      a = choose(["2", "2", "2", "2", "2", "2", "2", "4"])
+      a = choose(["2", "2", "2", "2", "2", "2", "2", "4"]);
       board[r][c] = parseInt(a);
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       tile.innerText = a;
       tile.classList.add("x" + a);
-      setTimeout(() => tile.classList.add("new"), (animationTime - .1) * 1000)
+      setTimeout(() => tile.classList.add("new"), (animationTime - 0.1) * 1000);
 
       found = true;
     }
@@ -183,22 +193,24 @@ function updateTile(tile, num) {
   }
 }
 
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
+document.addEventListener("touchstart", handleTouchStart, false);
+document.addEventListener("touchmove", handleTouchMove, false);
 
 var xDown = null;
 var yDown = null;
 
 function getTouches(evt) {
-  return evt.touches ||             // browser API
-    evt.originalEvent.touches; // jQuery
+  return (
+    evt.touches || // browser API
+    evt.originalEvent.touches
+  ); // jQuery
 }
 
 function handleTouchStart(evt) {
   const firstTouch = getTouches(evt)[0];
   xDown = firstTouch.clientX;
   yDown = firstTouch.clientY;
-};
+}
 
 function handleTouchMove(evt) {
   if (!xDown || !yDown) {
@@ -214,21 +226,19 @@ function handleTouchMove(evt) {
   var xDiff = xDown - xUp;
   var yDiff = yDown - yUp;
 
-  if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
+  if (Math.abs(xDiff) > Math.abs(yDiff)) {
+    /*most significant*/
     if (xDiff > 0) {
-      setTwo(slideLeft()
-      ); /* right swipe */
+      setTwo(slideLeft()); /* right swipe */
     } else {
-      setTwo(slideRight());/* left swipe */
+      setTwo(slideRight()); /* left swipe */
     }
   } else {
     if (yDiff > 0) {
-
       setTwo(slideUp());
       /* down swipe */
     } else {
-
-      setTwo(slideDown());  /* up swipe */
+      setTwo(slideDown()); /* up swipe */
     }
   }
   /* reset values */
@@ -236,12 +246,13 @@ function handleTouchMove(evt) {
   yDown = null;
 
   document.getElementById("score").innerText = score;
-  setTimeout(() => { clearAllTileStyle(); }, 400)
+  setTimeout(() => {
+    clearAllTileStyle();
+  }, 400);
   setTimeout(() => {
     checkMoves();
   }, 300);
-
-};
+}
 function slideanim(orientation) {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
@@ -249,60 +260,77 @@ function slideanim(orientation) {
         if (orientation == 0) {
           if (i != 0) {
             if (board[i - 1][j] == 0 || board[i][j] == board[i - 1][j]) {
-              var x = 0
+              var x = 0;
               for (n = 0; n < i; n++) {
                 if (board[n][j] == board[i][j] || board[n][j] == 0) {
                   x++;
                 }
               }
-              document.getElementById("t" + parseInt(i - x) + "-" + j).style = "--bs:" + 100 * x + "px; animation:slideup " + animationTime + "s;";
+              document.getElementById("t" + parseInt(i - x) + "-" + j).style =
+                "--bs:" +
+                100 * x +
+                "px; animation:slideup " +
+                animationTime +
+                "s;";
               // document.getElementById("t"+i+"-"+column).style=" animation:new .5s;";
             }
           }
-        }
-        else if (orientation == 1) {
+        } else if (orientation == 1) {
           if (j != 0) {
-            if (board[i][j - 1] == 0 || board[i][j] == board[i][j - 1]) {//&& board[i][j] != 0 && j != 0  && board[i-1][j]!=0
-              var x = 0
+            if (board[i][j - 1] == 0 || board[i][j] == board[i][j - 1]) {
+              //&& board[i][j] != 0 && j != 0  && board[i-1][j]!=0
+              var x = 0;
               for (n = 0; n < j; n++) {
                 if (board[i][n] == board[i][j] || board[i][n] == 0) {
                   x++;
                 }
               }
-              document.getElementById("t" + i + "-" + parseInt(j - x)).style = "--bs:" + 100 * x + "px; animation:slideleft " + animationTime + "s;";
+              document.getElementById("t" + i + "-" + parseInt(j - x)).style =
+                "--bs:" +
+                100 * x +
+                "px; animation:slideleft " +
+                animationTime +
+                "s;";
               //document.getElementById("t"+column+"-"+i).style=" animation:new 1s;"
             }
           }
-        }
-        else if (orientation == 2) { // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
+        } else if (orientation == 2) {
+          // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
           if (j != 0 && j != columns - 1) {
-
-
             if (board[i][j + 1] == 0 || board[i][j] == board[i][j + 1]) {
-              var x = 0
+              var x = 0;
               for (var n = columns - 1; n > j; n--) {
-
                 if (board[i][n] == board[i][j] || board[i][n] == 0) {
                   x++;
                 }
               }
-              document.getElementById("t" + parseInt(i) + "-" + parseInt(j + x)).style = "--bs:" + 100 * x + "px; animation:slideright " + animationTime + "s;";
+              document.getElementById(
+                "t" + parseInt(i) + "-" + parseInt(j + x)
+              ).style =
+                "--bs:" +
+                100 * x +
+                "px; animation:slideright " +
+                animationTime +
+                "s;";
               // document.getElementById("t"+i+"-"+column).style=" animation:new .5s;";
             }
           }
-        }
-        else if (orientation == 3) { // && board[i][j] != 0 && i != 3  && board[i][j+1]!=0
+        } else if (orientation == 3) {
+          // && board[i][j] != 0 && i != 3  && board[i][j+1]!=0
           if (i != rows - 1) {
-
             if (board[i + 1][j] == 0 || board[i][j] == board[i + 1][j]) {
-              var x = 0
+              var x = 0;
               for (var n = rows - 1; n > i; n--) {
-
                 if (board[n][j] == board[i][j] || board[n][j] == 0) {
                   x++;
                 }
               }
-              document.getElementById("t" + parseInt(i + x) + "-" + j).style = "--bs:" + 100 * x + "px; animation:slidedown " + animationTime + "s;";
+              document.getElementById("t" + parseInt(i + x) + "-" + j).style =
+                "--bs:" +
+                100 * x +
+                "px; animation:slidedown " +
+                animationTime +
+                "s;";
               // document.getElementById("t"+i+"-"+column).style=" animation:new .5s;";
             }
           }
@@ -312,7 +340,6 @@ function slideanim(orientation) {
   }
 }
 function slide(row, column, orientation) {
-
   row = filterZero(row); //step 1 no zero
   //2. sliding
   for (let i = 0; i < row.length - 1; i++) {
@@ -324,26 +351,38 @@ function slide(row, column, orientation) {
       score += row[i];
       if (orientation == 0) {
         // document.getElementById("t"+i+"-"+column).style="--bs:300px; animation:slideleft .4s;";
-        setTimeout(() => document.getElementById("t" + i + "-" + column).style = " animation:new .3s;", (animationTime - .1) * 1000);
-      }
-      else if (orientation == 1) {
+        setTimeout(
+          () =>
+            (document.getElementById("t" + i + "-" + column).style =
+              " animation:new .3s;"),
+          (animationTime - 0.1) * 1000
+        );
+      } else if (orientation == 1) {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
-        setTimeout(() => document.getElementById("t" + column + "-" + i).style = " animation:new .3s;", (animationTime - .1) * 1000);
-
-
-      }
-      else if (orientation == 2) {
+        setTimeout(
+          () =>
+            (document.getElementById("t" + column + "-" + i).style =
+              " animation:new .3s;"),
+          (animationTime - 0.1) * 1000
+        );
+      } else if (orientation == 2) {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
-        setTimeout(() => document.getElementById("t" + column + "-" + opposite(i)).style = " animation:new .3s;", (animationTime - .1) * 1000);
-
-
-      }
-      else {
+        setTimeout(
+          () =>
+            (document.getElementById("t" + column + "-" + opposite(i)).style =
+              " animation:new .3s;"),
+          (animationTime - 0.1) * 1000
+        );
+      } else {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
-        setTimeout(() => document.getElementById("t" + opposite(i) + "-" + column).style = " animation:new .3s;", (animationTime - .1) * 1000);
+        setTimeout(
+          () =>
+            (document.getElementById("t" + opposite(i) + "-" + column).style =
+              " animation:new .3s;"),
+          (animationTime - 0.1) * 1000
+        );
       }
     }
-
   }
   //remove new zeroes
   row = filterZero(row);
@@ -357,16 +396,13 @@ function slide(row, column, orientation) {
 function opposite(n) {
   a = [3, 2, 1, 0];
   return a[n];
-
 }
-
 
 function slideUp() {
   slideanim(0);
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let c = 0; c < columns; c++) {
-
     //taking transpose
     let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
     //slode
@@ -374,7 +410,9 @@ function slideUp() {
     //reasssigning appropriate value
     for (let r = 0; r < rows; r++) {
       board[r][c] = row[r];
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       let num = board[r][c];
 
       updateTile(tile, num);
@@ -385,8 +423,7 @@ function slideUp() {
 
   if (oldboard.join() === newboard.join()) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -397,26 +434,25 @@ function slideLeft() {
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let r = 0; r < rows; r++) {
-
     let row = board[r];
     row = slide(row, r, 1); //function slide reassigns value!
     board[r] = row;
 
     //after sliding we need to update the board in the page itself
     for (let c = 0; c < columns; c++) {
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       let num = board[r][c];
 
       updateTile(tile, num);
     }
-
   }
   let newboard = JSON.parse(JSON.stringify(board));
 
   if (oldboard.join() === newboard.join()) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -434,10 +470,11 @@ function slideRight() {
     row.reverse();
     board[r] = row;
 
-
     //after sliding we need to update the board in the page itself
     for (let c = 0; c < columns; c++) {
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       let num = board[r][c];
       updateTile(tile, num);
     }
@@ -446,13 +483,10 @@ function slideRight() {
 
   if (oldboard.join() === newboard.join()) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
-
-
 
 function slideDown() {
   slideanim(3);
@@ -460,7 +494,6 @@ function slideDown() {
   let oldboard = JSON.parse(JSON.stringify(board));
 
   for (let c = 0; c < columns; c++) {
-
     //taking transpose
     let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
     row.reverse();
@@ -470,7 +503,9 @@ function slideDown() {
     row.reverse();
     for (let r = 0; r < rows; r++) {
       board[r][c] = row[r];
-      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let tile = document.getElementById(
+        "t" + r.toString() + "-" + c.toString()
+      );
       let num = board[r][c];
 
       updateTile(tile, num);
@@ -480,21 +515,22 @@ function slideDown() {
 
   if (oldboard.join() === newboard.join()) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
 
-
 function clearAllTileStyle() {
   for (let r = 0; r < rows; r++) {
     for (var c = 0; c < columns; c++) {
-      document.getElementById("t" + r.toString() + "-" + c.toString()).style = "";
+      document.getElementById("t" + r.toString() + "-" + c.toString()).style =
+        "";
     }
   }
 }
-timer = setTimeout(() => { clearAllTileStyle(); }, 1000);
+timer = setTimeout(() => {
+  clearAllTileStyle();
+}, 1000);
 
 document.addEventListener("keyup", (e) => {
   if (!running) {
@@ -502,20 +538,16 @@ document.addEventListener("keyup", (e) => {
   }
   clearTimeout(timer);
   if (e.code == "ArrowLeft") {
-
     setTwo(slideLeft());
     //after every successful movement add a tile
   }
   if (e.code == "ArrowRight") {
-
     setTwo(slideRight());
   }
   if (e.code == "ArrowUp") {
-
     setTwo(slideUp());
   }
   if (e.code == "ArrowDown") {
-
     setTwo(slideDown());
   }
   document.getElementById("score").innerText = score;
@@ -527,6 +559,4 @@ document.addEventListener("keyup", (e) => {
   setTimeout(() => {
     checkMoves();
   }, 300);
-
 });
-
