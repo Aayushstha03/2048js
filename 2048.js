@@ -105,8 +105,8 @@ function checkMoves() {
 
     document.getElementById("finalScore").innerText = "You scored " + score;
 
-    const button = document.querySelector("input");
-    button.addEventListener("click", gameReset);
+    document.getElementById("body").style +=
+      "filter: blur(8px);-webkit-filter: blur(8px);";
   }
 }
 function gameReset() {
@@ -114,6 +114,7 @@ function gameReset() {
   if (document.getElementsByClassName("gameover").length > 0) {
     document.getElementById("gameoverscreen").remove();
   }
+  document.getElementById("body").style = "";
   score = 0;
   document.getElementById("score").innerText = score;
 

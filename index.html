@@ -10,23 +10,25 @@
 </head>
 
 <body>
-    <div class="header">
-        <h1 class="name">2048</h1>
-        <h2>Score: <span id="score">0</span></h2>
+    <div id="body">
+        <div class="header">
+            <h1 class="name">2048</h1>
+            <h2>Score: <span id="score">0</span></h2>
+        </div>
+
+        <p class="heading">Join the tiles to get 2048!</p>
+
+        <div id="board">
+        </div>
+        <p class="info">Use the arrow keys to slide the tiles.</p>
+
+        <button id="reset" onclick="gameReset();">Reset</button>
+        <footer>
+            <a href="https://github.com/Aayushstha03/" style="text-decoration:none; color: white;">
+                <p>https://github.com/Aayushstha03/</p>
+            </a>
+        </footer>
     </div>
-
-    <p class="heading">Join the tiles to get 2048!</p>
-
-    <div id="board">
-    </div>
-    <p class="info">Use the arrow keys to slide the tiles.</p>
-
-    <button id="reset" onclick="gameReset();">Reset</button>
-    <footer>
-        <a href="https://github.com/Aayushstha03/" style="text-decoration:none; color: white;">
-            <p>https://github.com/Aayushstha03/</p>
-        </a>
-    </footer>
 </body>
 
 </html>
