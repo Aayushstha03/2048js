@@ -97,11 +97,13 @@ function checkMoves() {
     message.classList.add("gameover");
     message.id = "gameoverscreen";
     message.innerHTML =
-      '<div class="gameover"><p class="message">Game over!</p><p>You scored 69 points!</p><button id="reset">Reset game!</button></div>';
+      '<div class="gameover"><p class="message">Game over!</p><p id="finalScore">You scored 69 points!</p><button id="reset" onclick="gameReset();">Reset game!</button></div>';
 
     if (document.getElementsByClassName("gameover").length < 1) {
       document.getElementsByTagName("body")[0].append(message);
     }
+
+    document.getElementById("finalScore").innerText = "You scored " + score;
 
     const button = document.querySelector("input");
     button.addEventListener("click", gameReset);
