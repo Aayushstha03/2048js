@@ -11,6 +11,7 @@ window.onload = function () {
 };
 
 function setGame() {
+  running = true
   board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -40,7 +41,7 @@ function checkMoves() {
   //       if(board[i][j]==0)
   //     fillcount++;}
   //   } 
- 
+
   for (var i = 0; i < rows; i++) {
     for (var j = 0; j < columns; j++) {
       if (i == 0) {
@@ -48,50 +49,36 @@ function checkMoves() {
           count++;
         }
       }
-       else if (i == rows-1) {
+      else if (i == rows - 1) {
         if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0) {
           count++;
         }
-        
+
       }
-      else{
-        if(board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 ||board[i][j] == board[i + 1][j] || board[i + 1][j] == 0){
+      else {
+        if (board[i][j] == board[i - 1][j] || board[i - 1][j] == 0 || board[i][j] == board[i + 1][j] || board[i + 1][j] == 0) {
           count++;
         }
       }
-       if (j == 0) {
+      if (j == 0) {
         if (board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
           count++;
         }
       }
-      else if (j == columns-1) {
+      else if (j == columns - 1) {
         if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0) {
           count++;
         }
       }
-      else{
+      else {
         if (board[i][j] == board[i][j - 1] || board[i][j - 1] == 0 || board[i][j] == board[i][j + 1] || board[i][j + 1] == 0) {
           count++;
         }
       }
     }
   }
-  
-  if (count==0) {
-    console.log(board)
-    alert("Game Over",board);
 
-    // let message = document.createElement("div"); //create a div for every element
-    // message.classList.add("gameover")
-    // message.innerHTML="<h2>Game Over</h2>"
-
-    board = [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-
-    ];
+  if (count == 0) {
     for (let c = 0; c < columns; c++) {
       for (let r = 0; r < rows; r++) {
         let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
@@ -99,11 +86,44 @@ function checkMoves() {
         updateTile(tile, num);
       }
     }
-    setTwo();
-    setTwo();
+    running = false
+    let message = document.createElement("div"); //create a div for every element
+    message.classList.add("gameover");
+    message.id = "gameoverscreen"
+    message.innerHTML = "<h2>Game Over</h2><form><input type=\"button\" id=\"cont\" value=\"Reset?\"></form>";
 
+    if (document.getElementsByClassName("gameover").length < 1) {
+      document.getElementsByTagName("body")[0].append(message);
+    }
+
+    const button = document.querySelector("input")
+    button.addEventListener('click', gameReset)
   }
+}
+function gameReset() {
+  running = true
+  if (document.getElementsByClassName("gameover").length > 0) {
+  document.getElementById("gameoverscreen").remove();
+ }
+  score = 0;
+  document.getElementById("score").innerText = score;
 
+  board = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+
+  ];
+  for (let c = 0; c < columns; c++) {
+    for (let r = 0; r < rows; r++) {
+      let tile = document.getElementById("t" + r.toString() + "-" + c.toString());
+      let num = board[r][c];
+      updateTile(tile, num);
+    }
+  }
+  setTwo();
+  setTwo();
 }
 
 function emptyTile() {
@@ -184,6 +204,9 @@ function handleTouchMove(evt) {
   if (!xDown || !yDown) {
     return;
   }
+  if (!running) {
+    return;
+  }
 
   var xUp = evt.touches[0].clientX;
   var yUp = evt.touches[0].clientY;
@@ -213,9 +236,10 @@ function handleTouchMove(evt) {
   yDown = null;
 
   document.getElementById("score").innerText = score;
-  setTimeout(() => { clearAllTileStyle(); checkMoves();   
-  }, 1000);
-
+  setTimeout(() => { clearAllTileStyle(); }, 400)
+  setTimeout(() => {
+    checkMoves();
+  }, 300);
 
 };
 function slideanim(orientation) {
@@ -251,12 +275,12 @@ function slideanim(orientation) {
           }
         }
         else if (orientation == 2) { // && board[opposite(i)][j] != 0 && j != 3  && board[i+1][j]!=0
-          if (j != 0 && j!=columns-1) {
+          if (j != 0 && j != columns - 1) {
 
 
             if (board[i][j + 1] == 0 || board[i][j] == board[i][j + 1]) {
               var x = 0
-              for (var n = columns-1; n > j; n--) {
+              for (var n = columns - 1; n > j; n--) {
 
                 if (board[i][n] == board[i][j] || board[i][n] == 0) {
                   x++;
@@ -268,11 +292,11 @@ function slideanim(orientation) {
           }
         }
         else if (orientation == 3) { // && board[i][j] != 0 && i != 3  && board[i][j+1]!=0
-          if (i != rows-1) {
+          if (i != rows - 1) {
 
             if (board[i + 1][j] == 0 || board[i][j] == board[i + 1][j]) {
               var x = 0
-              for (var n = rows-1; n > i; n--) {
+              for (var n = rows - 1; n > i; n--) {
 
                 if (board[n][j] == board[i][j] || board[n][j] == 0) {
                   x++;
@@ -355,7 +379,7 @@ function slideUp() {
 
       updateTile(tile, num);
     }
-  }  
+  }
 
   let newboard = JSON.parse(JSON.stringify(board));
 
@@ -473,6 +497,9 @@ function clearAllTileStyle() {
 timer = setTimeout(() => { clearAllTileStyle(); }, 1000);
 
 document.addEventListener("keyup", (e) => {
+  if (!running) {
+    return;
+  }
   clearTimeout(timer);
   if (e.code == "ArrowLeft") {
 
@@ -494,8 +521,12 @@ document.addEventListener("keyup", (e) => {
   document.getElementById("score").innerText = score;
   //  clearAllTileStyle();
 
-  timer = setTimeout(() => { clearAllTileStyle();  checkMoves();
+  timer = setTimeout(() => {
+    clearAllTileStyle();
   }, 400);
+  setTimeout(() => {
+    checkMoves();
+  }, 300);
 
 });
 
