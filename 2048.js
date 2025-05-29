@@ -356,32 +356,32 @@ function slide(row, column, orientation) {
         // document.getElementById("t"+i+"-"+column).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(
           () =>
-            (document.getElementById("t" + i + "-" + column).style =
-              " animation:new .3s;"),
+          (document.getElementById("t" + i + "-" + column).style =
+            " animation:new .3s;"),
           (animationTime - 0.1) * 1000
         );
       } else if (orientation == 1) {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(
           () =>
-            (document.getElementById("t" + column + "-" + i).style =
-              " animation:new .3s;"),
+          (document.getElementById("t" + column + "-" + i).style =
+            " animation:new .3s;"),
           (animationTime - 0.1) * 1000
         );
       } else if (orientation == 2) {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(
           () =>
-            (document.getElementById("t" + column + "-" + opposite(i)).style =
-              " animation:new .3s;"),
+          (document.getElementById("t" + column + "-" + opposite(i)).style =
+            " animation:new .3s;"),
           (animationTime - 0.1) * 1000
         );
       } else {
         // document.getElementById("t"+column+"-"+i).style="--bs:300px; animation:slideleft .4s;";
         setTimeout(
           () =>
-            (document.getElementById("t" + opposite(i) + "-" + column).style =
-              " animation:new .3s;"),
+          (document.getElementById("t" + opposite(i) + "-" + column).style =
+            " animation:new .3s;"),
           (animationTime - 0.1) * 1000
         );
       }
